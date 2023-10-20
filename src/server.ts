@@ -1,9 +1,17 @@
-function login(username: string): string {
-    const user = {
-        name: "rakesh",
-    };
-    const name = user.name;
-    return username + name;
-}
+import app from "./app";
+import { Config } from "./config";
+import logger from "./config/logger";
 
-login("akash");
+const startServer = () => {
+    const PORT = Config.PORT;
+    try {
+        app.listen(Config.PORT, () => logger.info(`Listning on port ${PORT}`));
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            logger.info(err.message);
+            process.exit(1);
+        }
+    }
+};
+
+startServer();
