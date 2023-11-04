@@ -121,7 +121,7 @@ describe("POST /auth/register", () => {
             const users = await userRepository.find();
             // Assert
             expect(response.statusCode).toBe(400);
-            expect(users).toHaveLength(1);
+            expect(users).toHaveLength(0);
         });
     });
     describe("Fields are missing", () => {});
