@@ -9,3 +9,5 @@ npx husky init
 echo "npm run lint" > .husky/pre-commit
 
 npm install --save-dev lint-staged
+
+npm i --save-dev supertest
