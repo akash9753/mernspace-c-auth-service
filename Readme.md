@@ -7,3 +7,5 @@ npm install husky -D
 npx husky init
 
 echo "npm run lint" > .husky/pre-commit
+
+npm install --save-dev lint-staged
