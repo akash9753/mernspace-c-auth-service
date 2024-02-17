@@ -1,13 +1,16 @@
-function login(username: string): string {
-    // console.log(username);
+import app from "./app";
+import { Config } from "./config";
 
-    const user = {
-        name: "akash",
-    };
+const startServer = () => {
+    const PORT = Config.PORT;
+    try {
+        // eslint-disable-next-line no-console
+        app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+    } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err);
+        process.exit(1);
+    }
+};
 
-    const name = user.name;
-
-    return username + name;
-}
-
-login("true");
+startServer();
