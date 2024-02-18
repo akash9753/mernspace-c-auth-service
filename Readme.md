@@ -39,3 +39,6 @@ npm install reflect-metadata --save
 
 npm install pg --save
 
+npx typeorm init --database postgres
+
+npm i --save-dev cross-env
