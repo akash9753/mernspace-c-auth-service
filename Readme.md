@@ -19,3 +19,23 @@ docker run --rm -it -v "%cd%":/usr/src/app -v /usr/src/app/node_modules --env-fi
 docker image
 
 docker ps
+
+docker pull postgres
+
+docker volume create pgdata
+
+docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v mernpgdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
+
+            CONTAINER ID
+docker stop 0e4f44b065ab 
+
+for connecting dbgate docker should run
+
+docker exec -it mernpg-container psql -U root
+
+npm i typeorm --save
+
+npm install reflect-metadata --save
+
+npm install pg --save
+
