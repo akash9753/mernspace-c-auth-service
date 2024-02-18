@@ -42,3 +42,7 @@ npm install pg --save
 npx typeorm init --database postgres
 
 npm i --save-dev cross-env
+
+npm install bcrypt
+
+npm i --save-dev @types/bcrypt
