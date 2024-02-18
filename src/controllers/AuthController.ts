@@ -32,6 +32,7 @@ import { Response, NextFunction } from "express";
 import { RegisterUserRequest } from "../types";
 import { UserService } from "../services/UserService";
 import { Logger } from "winston";
+import { validationResult } from "express-validator";
 
 export class AuthController {
     private userService: UserService;
@@ -47,6 +48,11 @@ export class AuthController {
         res: Response,
         next: NextFunction,
     ) {
+        // Validation
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() });
+        }
         const { firstName, lastName, email, password } = req.body;
         this.logger.debug("Now request to register a user", {
             firstName,
