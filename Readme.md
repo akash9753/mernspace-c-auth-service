@@ -19,4 +19,3 @@ docker run --rm -it -v "%cd%":/usr/src/app -v /usr/src/app/node_modules --env-fi
 docker image
 
 docker ps
-
