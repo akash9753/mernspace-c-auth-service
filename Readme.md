@@ -48,5 +48,3 @@ npm install bcrypt
 npm i --save-dev @types/bcrypt
 
 npm i -D @types/express-validator
-
-
