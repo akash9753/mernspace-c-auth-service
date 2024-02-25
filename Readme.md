@@ -60,3 +60,7 @@ npm install cookie-parser
 npm i --save-dev @types/cookie-parser
 
 npm i rsa-pem-to-jwk
+
+npm run migration:generate -- src/migration/migration -d src/config/data-source.ts
+
+npm run migration:run -- -d src/config/data-source.ts
