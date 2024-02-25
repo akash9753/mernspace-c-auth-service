@@ -59,4 +59,4 @@ npm install cookie-parser
 
 npm i --save-dev @types/cookie-parser
 
-npm i  rsa-pem-to-jwk
+npm i rsa-pem-to-jwk
