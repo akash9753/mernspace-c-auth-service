@@ -12,6 +12,7 @@ export default expressjwt({
     algorithms: ["RS256"],
     getToken(req: Request) {
         const authHeader = req.headers.authorization;
+        // console.log(`req.headers ********************`,req.headers);
 
         // Bearer eyjllsdjfljlasdjfljlsadjfljlsdf
         if (authHeader && authHeader.split(" ")[1] !== "undefined") {

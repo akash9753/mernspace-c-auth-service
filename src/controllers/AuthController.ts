@@ -81,6 +81,8 @@ export class AuthController {
     }
 
     async login(req: RegisterUserRequest, res: Response, next: NextFunction) {
+        // console.log("login");
+
         // Validation
         const result = validationResult(req);
         if (!result.isEmpty()) {
@@ -158,6 +160,8 @@ export class AuthController {
 
     async self(req: AuthRequest, res: Response) {
         // token req.auth.id
+        // console.log("akash");
+
         const user = await this.userService.findById(Number(req.auth.sub));
         res.json({ ...user, password: undefined });
     }
