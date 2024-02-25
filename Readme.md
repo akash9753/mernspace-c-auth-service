@@ -48,3 +48,13 @@ npm install bcrypt
 npm i --save-dev @types/bcrypt
 
 npm i -D @types/express-validator
+
+npm i -D mock-jwks@v1.0.10
+
+npm i express-jwt
+
+npm i --save jwks-rsa
+
+npm install cookie-parser
+
+npm i --save-dev @types/cookie-parser
