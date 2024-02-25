@@ -98,8 +98,6 @@ describe("POST /auth/register", () => {
             expect(response.body).toHaveProperty("id");
             const repository = connection.getRepository(User);
             const users = await repository.find();
-            // console.log(users);
-
             expect((response.body as Record<string, string>).id).toBe(
                 users[0].id,
             );
@@ -163,16 +161,17 @@ describe("POST /auth/register", () => {
             expect(response.statusCode).toBe(400);
             expect(users).toHaveLength(1);
         });
-        it("should return the access token and refresh token inside the cookie", async () => {
+
+        it("should return the access token and refresh token inside a cookie", async () => {
             // Arrange
             const userData = {
                 firstName: "Rakesh",
                 lastName: "K",
-                email: " rakesh@mern.space ",
+                email: "rakesh@mern.space",
                 password: "password",
             };
-            // Act
 
+            // Act
             const response = await request(app)
                 .post("/auth/register")
                 .send(userData);
@@ -180,15 +179,16 @@ describe("POST /auth/register", () => {
             interface Headers {
                 ["set-cookie"]?: string[];
             }
+            // Assert
             let accessToken = null;
             let refreshToken = null;
-            //Assert
             const cookies = (response.headers as Headers)["set-cookie"] || [];
-
+            // accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjkzOTA5Mjc2LCJleHAiOjE2OTM5MDkzMzYsImlzcyI6Im1lcm5zcGFjZSJ9.KetQMEzY36vxhO6WKwSR-P_feRU1yI-nJtp6RhCEZQTPlQlmVsNTP7mO-qfCdBr0gszxHi9Jd1mqf-hGhfiK8BRA_Zy2CH9xpPTBud_luqLMvfPiz3gYR24jPjDxfZJscdhE_AIL6Uv2fxCKvLba17X0WbefJSy4rtx3ZyLkbnnbelIqu5J5_7lz4aIkHjt-rb_sBaoQ0l8wE5KzyDNy7mGUf7cI_yR8D8VlO7x9llbhvCHF8ts6YSBRBt_e2Mjg5txtfBaDq5auCTXQ2lmnJtMb75t1nAFu8KwQPrDYmwtGZDkHUcpQhlP7R-y3H99YnrWpXbP8Zr_oO67hWnoCSw; Max-Age=43200; Domain=localhost; Path=/; Expires=Tue, 05 Sep 2023 22:21:16 GMT; HttpOnly; SameSite=Strict
             cookies.forEach((cookie) => {
                 if (cookie.startsWith("accessToken=")) {
                     accessToken = cookie.split(";")[0].split("=")[1];
                 }
+
                 if (cookie.startsWith("refreshToken=")) {
                     refreshToken = cookie.split(";")[0].split("=")[1];
                 }
@@ -364,14 +364,13 @@ describe("POST /auth/register", () => {
             const users = await userRepository.find();
             expect(users).toHaveLength(0);
         });
-
         it("shoud return an array of error messages if email is missing", async () => {
             // Arrange
             const userData = {
                 firstName: "Rakesh",
                 lastName: "K",
                 email: "",
-                password: "password", // less than 8 chars
+                password: "password",
             };
             // Act
             const response = await request(app)
