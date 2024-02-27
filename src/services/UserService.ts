@@ -1,43 +1,13 @@
-// import { AppDataSource } from "../config/data-source";
-// import { User } from "../entity/User";
-// import { UserData } from "../types";
-
-// export class UserService {
-
-//     async create({firstName, lastName, email, password} : UserData) {
-//         const userRepository = AppDataSource.getRepository(User);
-
-//         await userRepository.save({firstName, lastName, email, password})
-//     }
-// }
-//--------------------------------------------------------------------------
-// import { Repository } from "typeorm";
-// import { User } from "../entity/User";
-// import { UserData } from "../types";
-
-// export class UserService {
-//     constructor(private userRepository: Repository<User>) {}
-
-//     async create({ firstName, lastName, email, password }: UserData) {
-//         await this.userRepository.save({ firstName, lastName, email, password });
-//     }
-// }
-//---------------------------------------------------------------------------
 import { Repository } from "typeorm";
 import bcrypt from "bcrypt";
 import { User } from "../entity/User";
 import { UserData } from "../types";
 import createHttpError from "http-errors";
-import { Roles } from "../constants";
 
 export class UserService {
-    private userRepository: Repository<User>;
+    constructor(private userRepository: Repository<User>) {}
 
-    constructor(userRepository: Repository<User>) {
-        this.userRepository = userRepository;
-    }
-
-    async create({ firstName, lastName, email, password }: UserData) {
+    async create({ firstName, lastName, email, password, role }: UserData) {
         const user = await this.userRepository.findOne({
             where: { email: email },
         });
@@ -48,18 +18,19 @@ export class UserService {
         // Hash the password
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         try {
             return await this.userRepository.save({
                 firstName,
                 lastName,
                 email,
                 password: hashedPassword,
-                role: Roles.CUSTOMER,
+                role,
             });
         } catch (err) {
             const error = createHttpError(
                 500,
-                "Failed to store data in the database",
+                "Failed to store the data in the database",
             );
             throw error;
         }
