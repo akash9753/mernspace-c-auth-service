@@ -72,3 +72,7 @@ npm run migration:create src/migration/cascade_delete
 npm run build
 
 set NODE_ENV=dev node src/server.js
+
+docker build -t mernstack_test_prod_image -f docker/prod/DockerFile .
+
+docker image ls
