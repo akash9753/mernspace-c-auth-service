@@ -76,3 +76,9 @@ set NODE_ENV=dev node src/server.js
 docker build -t mernstack_test_prod_image -f docker/prod/DockerFile .
 
 docker image ls
+
+TEST_DB_PASSWORD=Array4242@#$%
+
+token soanrcloud 7ef4e07dba478a931f3af743f1c71bb358c572e0
+
+dockerhub token or password dckr_pat_F4OWnJSwBZc5IW4U4e4Jeis9tus
