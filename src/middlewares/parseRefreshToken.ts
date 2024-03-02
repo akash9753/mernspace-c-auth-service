@@ -2,6 +2,7 @@ import { expressjwt } from "express-jwt";
 import { Config } from "../config";
 import { Request } from "express";
 import { AuthCookie } from "../types";
+// console.log(`Config.REFRESH_TOKEN_SECRET!`,Config.REFRESH_TOKEN_SECRET!);
 
 export default expressjwt({
     secret: Config.REFRESH_TOKEN_SECRET!,

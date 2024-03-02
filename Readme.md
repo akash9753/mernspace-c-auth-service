@@ -68,3 +68,7 @@ npm run migration:run -- -d src/config/data-source.ts
 npm run migration:generate -- src/migration/rename_tables -d src/config/data-source.ts
 
 npm run migration:create src/migration/cascade_delete
+
+npm run build
+
+set NODE_ENV=dev node src/server.js

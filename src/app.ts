@@ -25,13 +25,17 @@ app.use("/users", userRouter);
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
     logger.error(err.message);
     const statusCode = err.statusCode || err.status || 500;
+    // Extract path and location information from the request object
+    const path = req.path;
+    const location = req.originalUrl;
     res.status(statusCode).json({
         errors: [
             {
                 type: err.name,
                 msg: err.message,
-                path: "",
-                location: "",
+                path: path,
+                location: location,
+                stack: err.stack,
             },
         ],
     });

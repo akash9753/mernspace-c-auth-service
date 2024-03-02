@@ -5,7 +5,7 @@ import { AuthCookie, IRefreshTokenPayload } from "../types";
 import { AppDataSource } from "../config/data-source";
 import { RefreshToken } from "../entity/RefreshToken";
 import logger from "../config/logger";
-
+// console.log(`Config.REFRESH_TOKEN_SECRET!`,Config.REFRESH_TOKEN_SECRET!);
 export default expressjwt({
     secret: Config.REFRESH_TOKEN_SECRET!,
     algorithms: ["HS256"],

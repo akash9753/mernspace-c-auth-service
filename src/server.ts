@@ -2,6 +2,7 @@ import app from "./app";
 import { Config } from "./config";
 import { AppDataSource } from "./config/data-source";
 import logger from "./config/logger";
+// console.log(`Config.PORT`,Config.PORT);
 
 const startServer = async () => {
     const PORT = Config.PORT;
