@@ -41,7 +41,7 @@ export class AuthController {
                 lastName,
                 email,
                 password,
-                role: Roles.ADMIN,
+                role: Roles.CUSTOMER,
             });
             this.logger.info("User has been registered", { id: user.id });
 
