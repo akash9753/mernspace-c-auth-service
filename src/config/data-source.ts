@@ -1,8 +1,11 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { User } from "../entity/User";
 import { Config } from ".";
-import { RefreshToken } from "../entity/RefreshToken";
+// console.log(`Config.DB_HOST`,Config.DB_HOST);
+// console.log(`DB_PORT`,Config.DB_PORT);
+// console.log(`Config.DB_USERNAME`,Config.DB_USERNAME);
+// console.log(`Config.DB_PASSWORD`,Config.DB_PASSWORD);
+// console.log(`Config.DB_NAME`,Config.DB_NAME);
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -11,10 +14,11 @@ export const AppDataSource = new DataSource({
     username: Config.DB_USERNAME,
     password: Config.DB_PASSWORD,
     database: Config.DB_NAME,
-    // Don't use this in production. Always keep false
-    synchronize: true,
+    // Don't use this in production.
+    // synchronize: Config.NODE_ENV === "test" || Config.NODE_ENV === "dev",
+    synchronize: false,
     logging: false,
-    entities: [User, RefreshToken],
-    migrations: [],
+    entities: ["src/entity/*.{ts,js}"],
+    migrations: ["src/migration/*.{ts,js}"],
     subscribers: [],
 });

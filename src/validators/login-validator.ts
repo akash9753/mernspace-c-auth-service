@@ -15,4 +15,3 @@ export default checkSchema({
         notEmpty: true,
     },
 });
-// export default [body("email").notEmpty().withMessage("Email is required!")];
