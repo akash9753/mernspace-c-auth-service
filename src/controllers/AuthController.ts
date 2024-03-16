@@ -41,7 +41,7 @@ export class AuthController {
                 lastName,
                 email,
                 password,
-                role: Roles.CUSTOMER,
+                role: Roles.MANAGER,
             });
             this.logger.info("User has been registered", { id: user.id });
 
@@ -120,9 +120,12 @@ export class AuthController {
                 return;
             }
 
+            // console.log("user",user);
+
             const payload: JwtPayload = {
                 sub: String(user.id),
                 role: user.role,
+                tenant: user.tenant ? user.tenant?.id : "",
             };
 
             const accessToken = this.tokenService.generateAccessToken(payload);
@@ -169,6 +172,7 @@ export class AuthController {
             const payload: JwtPayload = {
                 sub: req.auth.sub,
                 role: req.auth.role,
+                tenant: req.auth.tenant,
             };
 
             const accessToken = this.tokenService.generateAccessToken(payload);

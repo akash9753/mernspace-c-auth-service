@@ -56,6 +56,9 @@ export class UserService {
                 "role",
                 "password",
             ],
+            relations: {
+                tenant: true,
+            },
         });
     }
 
@@ -63,6 +66,9 @@ export class UserService {
         return await this.userRepository.findOne({
             where: {
                 id,
+            },
+            relations: {
+                tenant: true,
             },
         });
     }
@@ -92,5 +98,13 @@ export class UserService {
 
     async deleteById(userId: number) {
         return await this.userRepository.delete(userId);
+    }
+
+    async isUserAvailable(userId: number): Promise<boolean> {
+        // Check if there are any users with the specified user ID
+        const count = await this.userRepository.count({
+            where: { id: userId },
+        });
+        return count > 0;
     }
 }

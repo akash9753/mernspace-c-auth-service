@@ -56,4 +56,13 @@ export class TokenService {
     async deleteRefreshToken(tokenId: number) {
         return await this.refreshTokenRepository.delete({ id: tokenId });
     }
+    async deleteRefreshTokensByUserId(userId: number): Promise<void> {
+        const tokensToDelete = await this.refreshTokenRepository.find({
+            where: { user: { id: userId } },
+        });
+
+        if (tokensToDelete.length > 0) {
+            await this.refreshTokenRepository.remove(tokensToDelete);
+        }
+    }
 }

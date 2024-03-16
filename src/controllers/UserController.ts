@@ -4,18 +4,20 @@ import { CreateUserRequest, UpdateUserRequest } from "../types";
 import { Logger } from "winston";
 import createHttpError from "http-errors";
 import { validationResult } from "express-validator";
+import { TokenService } from "../services/TokenService";
 
 export class UserController {
     constructor(
         private userService: UserService,
         private logger: Logger,
+        private tokenService: TokenService,
     ) {}
 
     async create(req: CreateUserRequest, res: Response, next: NextFunction) {
         // Validation
         const result = validationResult(req);
         if (!result.isEmpty()) {
-            return res.status(400).json({ errors: result.array() });
+            return next(createHttpError(400, result.array()[0].msg as string));
         }
         const { firstName, lastName, email, password, tenantId, role } =
             req.body;
@@ -112,6 +114,16 @@ export class UserController {
         }
 
         try {
+            const userIdNumber = Number(userId);
+            // Check if there are refresh tokens associated with the user ID
+            const isUserId =
+                await this.userService.isUserAvailable(userIdNumber);
+
+            if (!isUserId) {
+                next(createHttpError(404, "No data to delete."));
+                return;
+            }
+            await this.tokenService.deleteRefreshTokensByUserId(Number(userId));
             await this.userService.deleteById(Number(userId));
 
             this.logger.info("User has been deleted", {
